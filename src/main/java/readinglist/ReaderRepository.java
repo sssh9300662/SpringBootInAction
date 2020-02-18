@@ -1,4 +1,4 @@
-package com.example.demo;
+package readinglist;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
