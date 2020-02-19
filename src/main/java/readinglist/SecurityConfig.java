@@ -22,12 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-		           .antMatchers("/","/readingList").authenticated()
+		           .antMatchers("/","/readingList").access("hasRole('READER')") 
 		           .antMatchers("/**").permitAll()
 		           .and()
 		           .formLogin()
-		           .and()
-				   .httpBasic();
+		           .loginPage("/login")
+		           .failureUrl("/login?error=true");
 	}
 	
 	@Override

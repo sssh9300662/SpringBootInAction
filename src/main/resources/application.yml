@@ -1,0 +1,19 @@
+server:
+  port: 8443
+  ssl: 
+   key-store:  file:/Windows/System32/mykeys.jks 
+   key-store-password: sssh9300662	
+   key-password: sssh9300662
+  
+spring:
+  main:
+    banner-mode: 'off'
+  thymeleaf:
+    cache: false
+
+logging: 
+  path: /var/logs/ 
+  file: BookWorm.log 
+  level: 
+    root: WARN 
+    org.springframework.security: DEBUG
