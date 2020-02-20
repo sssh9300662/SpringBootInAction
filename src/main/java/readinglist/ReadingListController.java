@@ -2,6 +2,8 @@ package readinglist;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/readingList")
 public class ReadingListController {
 
-	private static final String reader = "craig";
+	private static final Logger logger = LoggerFactory.getLogger(ReadingListController.class);
 
 	private ReadingListRepository readingListRepository;
 
@@ -22,8 +24,8 @@ public class ReadingListController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String readersBooks(Model model) {
-
+	public String readersBooks(Reader reader, Model model) {
+		logger.info("Start get reader {}'s reading list", reader.getUsername());
 		List<Book> readingList = readingListRepository.findByReader(reader);
 		if (readingList != null) {
 			model.addAttribute("books", readingList);
@@ -32,7 +34,8 @@ public class ReadingListController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String addToReadingList(Book book) {
+	public String addToReadingList(Reader reader, Book book) {
+		logger.info("Start insert book for reader {}", reader.getUsername());
 		book.setReader(reader);
 		readingListRepository.save(book);
 		return "redirect:/readingList";

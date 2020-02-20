@@ -37,3 +37,4 @@ build/
 /.mvn/
 /src/main/java/META-INF/
 *.log
+*.log.*.gz
