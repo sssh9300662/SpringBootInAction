@@ -13,11 +13,22 @@ error:
     enabled: false
   
 spring:
+  profiles: 
+   active: production
   main:
     banner-mode: 'off'
   thymeleaf:
     cache: false
-
+---
+spring: 
+ profiles: development
+logging: 
+ level:
+   root: DEBUG
+   org.springframework.security: DEBUG
+---
+spring: 
+ profiles: production   
 logging: 
   path: /var/logs/ 
   file: BookWorm.log 
