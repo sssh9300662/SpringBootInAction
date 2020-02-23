@@ -20,6 +20,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootTest(classes = ReadingListApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = ReadingListApplication.class, webEnvironment = WebEnvironment.DEFINED_PORT, value = { "server.port=8000" })
 public class SimpleWebTest {
 
 	public RestTemplate restTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
@@ -46,12 +47,15 @@ public class SimpleWebTest {
 		return restTemplate;
 	}
 
+	@Value("${server.port}")
+	private int port;
+
 	@Test
 	public void pageNotFound() {
 		assertThrows(HttpClientErrorException.class, () -> {
 			try {
 				RestTemplate restTemplate = restTemplate();
-				restTemplate.getForObject("https://localhost:8443/bogusPage", String.class);
+				restTemplate.getForObject("https://localhost:{port}/bogusPage", String.class, port);
 				fail("Should result in HTTP 404");
 			} catch (HttpClientErrorException e) {
 				assertEquals(HttpStatus.NOT_FOUND, e.getStatusCode());

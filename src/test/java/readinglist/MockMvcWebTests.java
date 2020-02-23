@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-@SpringBootTest(classes = ReadingListApplication.class)
+@SpringBootTest(classes = ReadingListApplication.class) //Specify webEnvironment in argument you can test that on web container env
 @EnableAutoConfiguration(exclude = UserDetailsServiceAutoConfiguration.class)
 public class MockMvcWebTests {
 
