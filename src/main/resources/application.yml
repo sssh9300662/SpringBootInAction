@@ -4,6 +4,21 @@ server:
    key-store:  file:/Windows/System32/mykeys.jks 
    key-store-password: sssh9300662	
    key-password: sssh9300662
+
+info: 
+ contact: 
+  email: support@myreadinglist.com 
+  phone: 1-888-555-1971
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: "ALWAYS"
+    shutdown:      enabled: true
    
 amazon:
   associate_id: habuma-20
